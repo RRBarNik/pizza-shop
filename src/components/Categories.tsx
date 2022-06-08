@@ -10,7 +10,7 @@ function Categories() {
     'Гриль',
     'Острые',
     'Закрытые'
-  ]
+  ];
 
   return (
     <div className="categories">
@@ -18,6 +18,7 @@ function Categories() {
         {
           categories.map((value, i) => (
             <li
+              key={i}
               onClick={() => setActiveIndex(i)}
               className={activeIndex === i ? 'active' : ''}>
               {value}

@@ -25,6 +25,7 @@ const PizzaBlock: React.FC<PropsType> = ({ title, price, imageUrl, sizes, types 
         <ul>
           {types.map((typeId) => (
             <li
+              key={typeId}
               onClick={() => setActiveType(typeId)}
               className={activeType === typeId ? 'active' : ''}
             >{typeNames[typeId]}</li>
@@ -34,6 +35,7 @@ const PizzaBlock: React.FC<PropsType> = ({ title, price, imageUrl, sizes, types 
           {
             sizes.map((size, i) => (
               <li
+                key={size}
                 onClick={() => setActiveSize(i)}
                 className={activeSize === i ? 'active' : ''}
               >{size} см</li>
