@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export type PropsType = {
+type PropsType = {
   value: number;
   onChangeCategory: (categoryId: number) => void
 }
