@@ -6,19 +6,17 @@ import Skeleton from '../components/PizzaBlock/Skeleton';
 import Sort from '../components/Sort';
 
 import pizzas from '../assets/pizzas.json';
-import ReactPaginate from 'react-paginate';
 import Pagination from '../components/Pagination';
+import { SearchContext } from '../App';
 
 export type SortType = {
     name: string;
     sortProperty: string;
 }
 
-type PropsType = {
-    searchValue: string;
-}
+const Home: React.FC = () => {
+    const { searchValue } = React.useContext(SearchContext);
 
-const Home: React.FC<PropsType> = ({ searchValue }) => {
     const [items, setItems] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [categoryId, setCategoryId] = useState(0);
