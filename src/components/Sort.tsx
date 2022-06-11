@@ -1,29 +1,32 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { SortType } from "../pages/Home";
+import { setSort } from "../redux/slices/filterSlice";
+import { RootState } from "../redux/store";
 
-type PropsType = {
-  value: SortType;
-  onChangeSort: (id: SortType) => void;
-}
+const list = [{
+  name: 'популярности (DESC)', sortProperty: 'rating'
+}, {
+  name: 'популярности (ASC)', sortProperty: '-rating'
+}, {
+  name: 'цене (DESC)', sortProperty: 'price'
+}, {
+  name: 'цене (ASC)', sortProperty: '-price'
+}, {
+  name: 'алфавиту (DESC)', sortProperty: 'title'
+}, {
+  name: 'алфавиту (ASC)', sortProperty: '-title'
+}];
 
-const Sort: React.FC<PropsType> = ({ value, onChangeSort, ...props }) => {
+const Sort: React.FC = (props) => {
+  const dispatch = useDispatch();
+  const sort = useSelector((state: RootState) => state.filter.sort);
+
   const [open, setOpen] = useState(false);
-  const list = [{
-    name: 'популярности (DESC)', sortProperty: 'rating'
-  }, {
-    name: 'популярности (ASC)', sortProperty: '-rating'
-  }, {
-    name: 'цене (DESC)', sortProperty: 'price'
-  }, {
-    name: 'цене (ASC)', sortProperty: '-price'
-  }, {
-    name: 'алфавиту (DESC)', sortProperty: 'title'
-  }, {
-    name: 'алфавиту (ASC)', sortProperty: '-title'
-  }];
 
   const onClickListItem = (obj: SortType) => {
-    onChangeSort(obj);
+    dispatch(setSort(obj));
     setOpen(!open);
   }
 
@@ -43,7 +46,7 @@ const Sort: React.FC<PropsType> = ({ value, onChangeSort, ...props }) => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setOpen(!open)}>{value.name}</span>
+        <span onClick={() => setOpen(!open)}>{sort.name}</span>
       </div>
       {open && (
         <div className="sort__popup">
@@ -53,7 +56,7 @@ const Sort: React.FC<PropsType> = ({ value, onChangeSort, ...props }) => {
                 <li
                   key={i}
                   onClick={() => onClickListItem(obj)}
-                  className={value.sortProperty === obj.sortProperty ? 'active' : ''}
+                  className={sort.sortProperty === obj.sortProperty ? 'active' : ''}
                 >{obj.name}</li>
               ))
             }
